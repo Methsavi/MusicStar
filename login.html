@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>Login Page</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <script src="script.js"></script>   
+    </head>
+    <body>
+        <div class="container">
+            <h1>Login</h1>
+            <form id="loginForm" onsubmit="return validateForm()">
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username"><br><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password"><br><br>
+                <input type="submit" value="Login">
+            </form> 
+            <p id="errorMessage" class="error"></p> 
+        </div>  
+        <script>
+            function validateForm() {
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+                var errorMessage = document.getElementById("errorMessage");
+
+                if (username === "" || password === "") {
+                    errorMessage.textContent = "Username and password cannot be empty.";
+                    return false;
+                } else {
+                    errorMessage.textContent = ""; // Clear error message
+                    return true; // Form is valid
+                }
+            }
+        </script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 20px;
+            }
+            .container {
+                max-width: 300px;
+                margin: auto;
+                padding: 20px;
+                background-color: white;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                text-align: center;
+            }
+            label {
+                display: block;
+                margin-bottom: 5px;
+            }
+            input[type="text"], input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+            input[type="submit"] {
+                width: 100%;
+                padding: 10px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            input[type="submit"]:hover {
+                background-color: #218838;
+            }
+            .error {
+                color: red;
+            }
+        </style>    
+    </body>
+   
+</html>
