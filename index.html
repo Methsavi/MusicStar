@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusicTalk - Join the Music Conversation</title>
+    <style>
+        :root {
+            --primary-color: #4a76a8;
+            --secondary-color: #3a5f8a;
+            --accent-color: #ff6b6b;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --gray-color: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #ddd;
+            margin: 40px 0;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .trending-discussions, .artists-section, .categories-section, .latest-conversations {
+            margin-bottom: 40px;
+        }
+        
+        .discussion-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .discussion-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .discussion-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .discussion-meta {
+            display: flex;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .discussion-meta span {
+            margin-right: 15px;
+        }
+        
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .artist-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .artist-card h3 {
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .artist-card p {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .category-card h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .category-card p {
+            color: var(--gray-color);
+            font-size: 0.8rem;
+        }
+        
+        .conversation-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .conversation-card h3 {
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .conversation-meta {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            color: var(--gray-color);
+            font-size: 0.8rem;
+        }
+        
+        .conversation-meta span {
+            margin-right: 15px;
+        }
+        
+        .conversation-stats {
+            display: flex;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .conversation-stats span {
+            margin-right: 15px;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 0;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .artists-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Join the Music Conversation</h1>
+            <p>Where music lovers unite to discuss their favorite artists and performances</p>
+            <a href="#" class="btn" id="startDiscussionBtn">Start Discussion</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="trending-discussions">
+            <h2 class="section-title">Trending Discussions</h2>
+            
+            <div class="discussion-card">
+                <h3>Top 10 Best Live Performances of 2024</h3>
+                <div class="discussion-meta">
+                    <span>328 comments</span>
+                    <span>2h ago</span>
+                </div>
+            </div>
+            
+            <div class="discussion-card">
+                <h3>Taylor Swift's Eras Tour Impact</h3>
+                <div class="discussion-meta">
+                    <span>456 comments</span>
+                    <span>2h ago</span>
+                </div>
+            </div>
+            
+            <div class="discussion-card">
+                <h3>Greatest Guitar Solos of All Time</h3>
+                <div class="discussion-meta">
+                    <span>288 comments</span>
+                    <span>2h ago</span>
+                </div>
+            </div>
+        </section>
+        
+        <hr>
+        
+        <section class="artists-section">
+            <h2 class="section-title">Artists Making Waves</h2>
+            
+            <div class="artists-grid">
+                <div class="artist-card">
+                    <h3>The Weeknd</h3>
+                    <p>156 active discussions</p>
+                </div>
+                
+                <div class="artist-card">
+                    <h3>Arctic Monkeys</h3>
+                    <p>142 active discussions</p>
+                </div>
+                
+                <div class="artist-card">
+                    <h3>Billie Eilish</h3>
+                    <p>134 active discussions</p>
+                </div>
+                
+                <div class="artist-card">
+                    <h3>Drake</h3>
+                    <p>128 active discussions</p>
+                </div>
+            </div>
+        </section>
+        
+        <hr>
+        
+        <section class="categories-section">
+            <h2 class="section-title">Explore by Category</h2>
+            
+            <div class="categories-grid">
+                <div class="category-card">
+                    <h3>Rock & Metal</h3>
+                    <p>1240 discussions</p>
+                </div>
+                
+                <div class="category-card">
+                    <h3>Pop</h3>
+                    <p>987 discussions</p>
+                </div>
+                
+                <div class="category-card">
+                    <h3>Hip-Hop & R&B</h3>
+                    <p>756 discussions</p>
+                </div>
+                
+                <div class="category-card">
+                    <h3>Electronic</h3>
+                    <p>549 discussions</p>
+                </div>
+                
+                <div class="category-card">
+                    <h3>Classical</h3>
+                    <p>321 discussions</p>
+                </div>
+                
+                <div class="category-card">
+                    <h3>Jazz</h3>
+                    <p>234 discussions</p>
+                </div>
+            </div>
+        </section>
+        
+        <hr>
+        
+        <section class="latest-conversations">
+            <h2 class="section-title">Latest Conversations</h2>
+            
+            <div class="conversation-card">
+                <h3>Your favorite concert experience of 2024?</h3>
+                <div class="conversation-meta">
+                    <span>MusicLover123</span>
+                    <span>Concerts</span>
+                </div>
+                <div class="conversation-stats">
+                    <span>45 replies</span>
+                    <span>1h ago</span>
+                </div>
+            </div>
+            
+            <div class="conversation-card">
+                <h3>Most anticipated albums of the year</h3>
+                <div class="conversation-meta">
+                    <span>VinylCollector</span>
+                    <span>Albums</span>
+                </div>
+                <div class="conversation-stats">
+                    <span>32 replies</span>
+                    <span>2h ago</span>
+                </div>
+            </div>
+            
+            <div class="conversation-card">
+                <h3>Best music production software for beginners</h3>
+                <div class="conversation-meta">
+                    <span>BeatMaker</span>
+                    <span>Production</span>
+                </div>
+                <div class="conversation-stats">
+                    <span>28 replies</span>
+                    <span>3h ago</span>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MusicTalk</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Guidelines</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="#">Forum Rules</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2024 MusicTalk. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click event to the Start Discussion button
+            const startDiscussionBtn = document.getElementById('startDiscussionBtn');
+            if (startDiscussionBtn) {
+                startDiscussionBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Starting a new discussion! This would open a discussion form in a real implementation.');
+                });
+            }
+            
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.discussion-card, .artist-card, .category-card, .conversation-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+                });
+            });
+            
+            // Simulate loading content
+            console.log('MusicTalk page loaded successfully!');
+        });
+    </script>
+</body>
+</html>
